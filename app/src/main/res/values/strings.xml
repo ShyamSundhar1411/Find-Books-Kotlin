@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SearchYT</string>
+    <string name="searchBoxText">Search</string>
+</resources>
