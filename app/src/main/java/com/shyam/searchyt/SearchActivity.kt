@@ -9,7 +9,5 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
         var test_term = intent.getStringExtra("Searched_Term").toString()
-        var testView = findViewById<TextView>(R.id.testedTermBox)
-        testView.text = test_term
     }
 }
