@@ -7,7 +7,7 @@
     tools:context=".SearchActivity">
 
     <ListView
-        android:id="@+id/VideoListView"
+        android:id="@+id/BookListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"

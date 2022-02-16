@@ -7,30 +7,29 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-val API_KEY = "AIzaSyC4lomMLWKw8OGVOBfSr9RsxtznY__TlCs"
-interface YouTubeService{
-    @GET("youtube/v3/search?")
-    fun searchVideos(@Query("q") q:String,@Query("key") key:String) : Call<YouTubeSearchResult>
+interface BookService{
+    @GET("books/v1/volumes?")
+    fun searchBooks(@Query("q") q:String) : Call<BookSearchResult>
 }
-class YouTubeSearchResult(val items : List<Videos>)
-class Videos(val id : String , val resource : List<Snippet>)
-class Snippet(val title : String,val thumbnail : String)
-
-class VideoRetriever{
-    val service : YouTubeService
+class BookSearchResult(val items : List<Items>)
+class Items(val id : String , val volumeInfo : VolumeInfo)
+class VolumeInfo(val title : String,val previewLink : String,val imageLinks : Thumbnail, val publisher : String)
+class Thumbnail(val thumbnail : String)
+class BookRetriever{
+    val service : BookService
     init {
         val retrofit =
-            Retrofit.Builder().baseUrl("https://https://www.googleapis.com/").addConverterFactory(
+            Retrofit.Builder().baseUrl("https://www.googleapis.com/").addConverterFactory(
                 GsonConverterFactory.create()
             ).build()
-        service = retrofit.create(YouTubeService::class.java)
+        service = retrofit.create(BookService::class.java)
     }
-    fun getVideos(callBack : Callback<YouTubeSearchResult>,searchTerm:String){
+    fun getBooks(callBack : Callback<BookSearchResult>,searchTerm:String){
         var searchT = searchTerm
         if(searchT == ""){
             searchT = "Kotlin"
         }
-        val call = service.searchVideos(searchT, API_KEY)
+        val call = service.searchBooks(searchT)
         call.enqueue(callBack)
     }
 }
